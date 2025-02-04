@@ -1,30 +1,29 @@
-import React, { useState, useEffect} from 'react';
-import {getGroups, createGroup} from '../services/groupService';
+import React, { useContext, useState, useEffect} from 'react';
+import {groupService} from '../services/groupService';
+import { AuthContext } from '../context/authContext';
 
 const GroupComponent = () => {
     const [groups, setGroups] = useState([]);
-    const [group, setGroup] = useState('');
+    const [groupName, setGroup] = useState('');
+    const { token } = useContext(AuthContext);
 
     useEffect(() => {
-        fetchGroups();
-    }, []);
-
-    const fetchGroups = async() => {
-        try {
-            const data = await getGroups();
-            setGroups(data);
-        } catch (error) {
-            console.error('Failed to fetch groups:', error);
+        if (token) {
+            groupService.getGroups(token)
+            .then((data) => setGroups(data))
+            .catch((error) => console.error('Error fetching groups:', error));
         }
-    };
+    }, [token]);
 
-    const handleSaveGroup = async() => {
-        try {
-            await createGroup({name: group});
-            setGroup('');
-            fetchGroups();
-        } catch (error) {
-            console.error('Failed to save group:', error);
+
+    const handleSaveGroup = () => {
+        if (token && groupName) {
+            groupService.createGroup(token, groupName)
+            .then((newGroup) => {
+                setGroups([...groups, newGroup]);
+                setGroup('');
+            })
+            .catch((error) => console.error('Error creating group:', error));
         }
     };
 
@@ -33,7 +32,7 @@ const GroupComponent = () => {
             <h2>Groups</h2>
             <input 
                 type="text" 
-                value={group} 
+                value={groupName} 
                 onChange={(e) => setGroup(e.target.value)} 
                 placeholder="Enter group name" 
             />
