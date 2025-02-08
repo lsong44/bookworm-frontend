@@ -17,5 +17,5 @@ function logout() {
 }
 
 function isAuthenticated() {
-    return localStorage.getItem('token') !== null;
+    return localStorage.getItem('token') !== null && localStorage.getItem('token') !== undefined;
 }

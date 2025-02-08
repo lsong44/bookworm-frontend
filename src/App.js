@@ -1,16 +1,21 @@
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
 import Groups from './components/groupComponent';
+import GroupEditComponent from './components/groupEditComponent';
+import GroupDetailsComponent from './components/groupDetailsComponent';
+import MemberEditComponent from './components/memberEditComponent';
+import MemberDetailsComponent from './components/memberDetailsComponent';
 import Login from './components/loginComponent';
 import Logout from './components/logoutComponent';
 import { AuthContext } from './context/authContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import MemberComponent from './components/memberComponent';
 
 const App = () => {
 
-    const isAuthenticated = useContext(AuthContext);
+    const {isAuthenticated} = useContext(AuthContext);
 
     return (
         <Router>
@@ -29,9 +34,12 @@ const App = () => {
                       <li className="nav-item">
                         <Link className="nav-link" to="/groups">Groups</Link>
                       </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/members">Members</Link>
+                        </li>
                     </ul>
                     <div className="d-flex">
-                      {isAuthenticated.isAuthenticated ? (
+                      {isAuthenticated? (
                         <Logout />
                       ) : (
                         <Login />
@@ -43,6 +51,11 @@ const App = () => {
               <div className="container mt-4">
                <Routes>
                     <Route path="/groups" element={<Groups />} />
+                    <Route path="/group/:groupName" element={<GroupDetailsComponent />} />
+                    <Route path="/group/:groupName/edit" element={<GroupEditComponent />} />
+                    <Route path="/members" element={<MemberComponent />} />
+                    <Route path="/member/:memberName" element={<MemberDetailsComponent />} />
+                    <Route path="/member/:memberName/edit" element={<MemberEditComponent />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/logout" element={<Logout />} />
                     <Route path="/" element={<h1>Welcome to the BookWorm!</h1>} />
