@@ -121,7 +121,12 @@ function editMembership (token, groupName) {
 
 function cleanUpMembership (token, groupName, deadlineDate = null) {
 
-  return fetch(`${API_URL}/api/membership/cleanup?groupName=${groupName}&deadlineDate=${deadlineDate}`, {
+  let url = `${API_URL}/api/membership/clean-up?groupName=${groupName}`;
+  if (deadlineDate) {
+    url += `&deadlineDate=${deadlineDate}`;
+  }
+
+  return fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

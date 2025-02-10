@@ -220,8 +220,8 @@ const GroupDetailsComponent = () => {
                 <div>
                     
                     <button type="button" className="btn btn-primary mt-3 me-2" onClick={() => navigate(`/group/${groupName}/edit`)}>Edit</button>
-                    <button type="button" className="btn btn-secondary mt-3 me-2" onClick={() => handlePromoteWaitlister()}>Promote waitlisters</button>
-                    <button type="button" className="btn btn-secondary mt-3 me-2" onClick={() => handleCleanup()}>Clean up group</button>
+                    <button type="button" className="btn btn-success mt-3 me-2" onClick={() => handlePromoteWaitlister()}>Promote waitlisters</button>
+                    <button type="button" className="btn btn-danger mt-3 me-2" onClick={() => handleCleanup()}>Clean up group</button>
                     <button type="button" className="btn btn-secondary mt-3" onClick={() => navigate(-1)}>Back</button>
                 </div>
             </div>

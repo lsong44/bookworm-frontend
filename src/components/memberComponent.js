@@ -75,7 +75,7 @@ const MemberComponent = () => {
             <ul className="list-group">
                 {members.map((m, index) => (
                     <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
-                        <Link to={`/member/${m.name}`}>{m.name} Email: {m.email}</Link>
+                        <Link to={`/member/${m.name}`}>{m.name}: {m.email}</Link>
                         <div>
                             <button className="btn btn-secondary btn-sm me-2" onClick={() => handleEditMember(m.name)}>Edit</button>
                             <button className="btn btn-danger btn-sm" onClick={() => handleDeleteMember(m.name)}>Delete</button>

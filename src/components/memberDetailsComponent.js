@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { memberService } from '../services/memberService';
 import { membershipService } from '../services/membershipService';
+import  LogComponent  from './logComponent';
 import { AuthContext } from '../context/authContext';
 
 const MemberDetailsComponent = () => {
@@ -60,31 +61,42 @@ const MemberDetailsComponent = () => {
                                             <th>Email</th>
                                             <td>{member.email}</td>
                                         </tr>
+                                    
+                                        <tr>
+                                            <th>Groups</th>
+                                            <td>{groups.length}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan="2">
+                                                <table className="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Group Name</th>
+                                                            <th>Role</th>
+                                                            <th>Since</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {groups.map((group, index) => (
+                                                            <tr key={index}>
+                                                                <td><Link to={`/group/${group.groupName}`}>{group.groupName}</Link></td>
+                                                                <td>{group.groupRole}</td>
+                                                                <td>{group.groupRoleSince}</td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                    </div>
-                    <div className="col-md-6 mb-4">
-                        <h5 className="card-title">Groups</h5>
-                        <table className="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Group Name</th>
-                                    <th>Role</th>
-                                    <th>Since</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {groups.map((group, index) => (
-                                    <tr key={index}>
-                                        <td><Link to={`/group/${group.groupName}`}>{group.groupName}</Link></td>
-                                        <td>{group.groupRole}</td>
-                                        <td>{group.groupRoleSince}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                    </div> 
+                </div>
+                <div className="row">
+                    <div className="col-md-12 mb-4">
+                        <LogComponent memberName={memberName}/>
                     </div>
                 </div>
                 <div>
